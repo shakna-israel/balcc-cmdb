@@ -3,6 +3,7 @@
 
 import json
 import os
+import datetime
 
 def prevent_key_errors(dictIn, keyForce):
     try:
@@ -10,6 +11,19 @@ def prevent_key_errors(dictIn, keyForce):
     except KeyError:
         dictIn[keyForce] = "UNKNOWN"
     return dictIn
+
+def expand_data(dictIn):
+    dictOut = dictIn
+    for device in dictIn:
+        try:
+            date_format = "%d/%m/%Y"
+            purchaseDate = datetime.datetime.strptime(dictIn[device]['Purchase Date'], date_format)
+            now = datetime.datetime.now()
+            diff = now - purchaseDate
+            dictOut[device]['Age'] = str(diff.days/365) + " years."
+        except ValueError:
+            dictOut[device]['Age'] = "UNKNOWN"
+    return dictOut
 
 def get_data():
     if not os.path.isdir(os.path.expanduser("~/.cmdb/data")):
@@ -28,7 +42,9 @@ def get_data():
     fixedDict = {}
     for item in dataFields:
         for device in touchData:
-            fixedDict[device] = prevent_key_errors(touchData, item)
+            fixedDict[device] = prevent_key_errors(touchData[device], item)
+    touchDate = expand_data(touchData)
+    write_data(touchData)
     return dict(touchData)
 
 def write_data(dictIn):
