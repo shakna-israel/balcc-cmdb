@@ -9,10 +9,8 @@ def index():
     data = get_data()
     return template('home',data=data)
 
-@route('/generate/<name>')
-def generate_test(name):
-    data = {'name':name}
-    write_data(data)
-    return template('home',data=data)
+@route('/create')
+def create_get():
+	return template('generate')
 
 run(host='localhost', port=8080)

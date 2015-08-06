@@ -4,6 +4,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <style>
+td {
+    font-size: 0.7em !important;
+}
 td.unknown {
     background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.8);
