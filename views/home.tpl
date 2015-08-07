@@ -46,7 +46,7 @@ td.unknown {
             % if data[device]['SNID'] == 'UNKNOWN':
                 <td class="unknown">{{data[device]['SNID']}}</td>
             % else:
-                <td>data[device]['SNID']</td>
+                <td>{{data[device]['SNID']}}</td>
             % end
             % if data[device]['Type'] == 'UNKNOWN':
                 <td class="unknown">{{data[device]['Type']}}</td>
