@@ -2,3 +2,5 @@
 (B) 2015-08-12 Editable Table via multiple listeners for writing events
 (C) 2015-08-12 Highlight row for warnings
 (D) 2015-08-12 Insert existing data
+(C) 2015-08-12 Search and Filter Functions
+(B) 2015-08-12 Item Deletion via Table
