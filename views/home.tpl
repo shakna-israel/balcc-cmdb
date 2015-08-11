@@ -12,6 +12,31 @@ td.unknown {
     background-color: rgba(0, 0, 0, 0.8);
     color: rgb(255,255,255);
 }
+td.red {
+    background-color: rgb(255, 0, 0);
+    background-color: rgba(255, 0, 0, 0.8);
+    color: rgb(0,0,0);
+}
+td.orange {
+    background-color: rgb(255, 165, 0);
+    background-color: rgba(255, 165, 0, 0.8);
+    color: rgb(0,0,0);
+}
+td.yellow {
+    background-color: rgb(255, 255, 0);
+    background-color: rgba(255, 255, 0, 0.8);
+    color: rgb(0,0,0);
+}
+td.blue {
+    background-color: rgb(0, 0, 255);
+    background-color: rgba(0, 0, 255, 0.8);
+    color: rgb(255,255,255);
+}
+td.green {
+    background-color: rgb(0, 128, 0);
+    background-color: rgba(0, 128, 0, 0.8);
+    color: rgb(255,255,255);
+}
 @media (min-width: 30em) {
     .row { width: 100%; display: table; table-layout: fixed; }
     .col { display: table-cell; }
@@ -31,6 +56,86 @@ td.unknown {
     <div class="col">
         <p><a href="/edit/person">Edit Existing User</a></p>
     </div>
+</div>
+<div class="row">
+    <div class="col">
+    % deviceCount = len(data.keys())
+        <p>{{deviceCount}} devices under management.</p>
+    </div>
+    
+    % deviceCountNew = 0
+    % for device in data.values():
+        % if device['Status'] == 'New':
+            % deviceCountNew += 1
+        % end
+        % if deviceCountNew > 0:
+            <div class="col">
+                <p>{{deviceCountNew}} new devices.</p>
+            </div>
+        % end
+    % end
+    
+    
+    % deviceCountOk = 0
+    % for device in data.values():
+        % if device['Status'] == 'Ok':
+            % deviceCountOk += 1
+        % end
+        % if deviceCountOk > 0:
+            <div class="col">
+                <p>{{deviceCountOk}} ok devices.</p>
+            </div>
+        % end
+    % end
+    
+    
+    % deviceCountServiceable = 0
+    % for device in data.values():
+        % if device['Status'] == 'Serviceable':
+            % deviceCountServiceable += 1
+        % end
+        % if deviceCountServiceable > 0:
+            <div class="col">
+                <p>{{deviceCountServiceable}} serviceable devices.</p>
+            </div>
+        % end
+    
+    
+        % deviceCountServiceRequired = 0
+        % for device in data.values():
+            % if device['Status'] == 'Service Required':
+                % deviceCountServiceRequired += 1
+            % end
+        % if deviceCountServiceRequired > 0:
+            <div class="col">
+                <p>Service Required for {{deviceCountServiceRequired}} devices.</p>
+            </div>
+        % end
+    
+    
+        % deviceCountReplacementRequired = 0
+        % for device in data.values():
+            % if device['Status'] == 'Replacement Required':
+                % deviceCountReplacementRequired += 1
+            % end
+        % if deviceCountReplacementRequired > 0:
+            <div class="col">
+                <p>Replacement Required for {{deviceCountReplacementRequired}} devices.</p>
+            </div>
+        % end
+    
+    
+        % deviceCountUnknownStatus = 0
+        % for device in data.values():
+            % if device['Status'] == 'UNKNOWN':
+                % deviceCountUnknownStatus += 1
+            % end
+        % if deviceCountUnknownStatus > 0:
+            <div class="col">
+                <p>{{deviceCountUnknownStatus}} devices with an unknown status.</p>
+            </div>
+        % end
+    
 </div>
 <div class="row">
     <div class="col">
@@ -98,14 +203,14 @@ td.unknown {
                 <td contenteditable='true'>{{data[device]['Purchase Date']}}</td>
             % end
             % if data[device]['Current Worth'] == 'UNKNOWN':
-                <td contenteditable='true' class="unknown">{{data[device]['Current Worth']}}</td>
+                <td class="unknown">{{data[device]['Current Worth']}}</td>
             % else:
-                <td contenteditable='true'>${{data[device]['Current Worth']}}</td>
+                <td>${{data[device]['Current Worth']}}</td>
             % end
             % if data[device]['Age'] == 'UNKNOWN':
-                <td contenteditable='true' class="unknown">{{data[device]['Age']}}</td>
+                <td class="unknown">{{data[device]['Age']}}</td>
             % else:
-                <td contenteditable='true'>{{data[device]['Age']}}</td>
+                <td>{{data[device]['Age']}}</td>
             % end
             % if data[device]['License'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown">{{data[device]['License']}}</td>
@@ -115,7 +220,7 @@ td.unknown {
             % if data[device]['Cost'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown">{{data[device]['Cost']}}</td>
             % else:
-                <td>${{data[device]['Cost']}}</td>
+                <td contenteditable='true' class="unknown">${{data[device]['Cost']}}</td>
             % end
             % if data[device]['Operating System'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown">{{data[device]['Operating System']}}</td>
@@ -147,11 +252,21 @@ td.unknown {
             % else:
                 <td contenteditable='true'>{{data[device]['Assigned To']}}</td>
             % end
+
             % if data[device]['Status'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown">{{data[device]['Status']}}</td>
-            % else:
-                <td contenteditable='true'>{{data[device]['Status']}}</td>
+            % elif data[device]['Status'] == 'New':
+                <td contenteditable='true' class="green">{{data[device]['Status']}}</td>
+            % elif data[device]['Status'] == 'Ok':
+                <td contenteditable='true' class="blue">{{data[device]['Status']}}</td>
+            % elif data[device]['Status'] == 'Serviceable':
+                <td contenteditable='true' class="yellow">{{data[device]['Status']}}</td>
+            % elif data[device]['Status'] == 'Service Required':
+                <td contenteditable='true' class="orange">{{data[device]['Status']}}</td>
+            % elif data[device]['Status'] == 'Replacement Required':
+                <td contenteditable='true' class="red">{{data[device]['Status']}}</td>
             % end
+
             % if data[device]['Expiry Date'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown">{{data[device]['Expiry Date']}}</td>
             % else:
