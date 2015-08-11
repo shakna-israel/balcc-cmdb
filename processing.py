@@ -99,6 +99,24 @@ def get_people():
         touchData['teachers'] = []
     return dict(touchData)
 
+def remove_person(stringName, role):
+    people = get_people()
+    students = people['students']
+    teachers = people['teachers']
+    staff = people['staff']
+    if role == 'students':
+        students.remove(stringName)
+        people['students'] = students
+    elif role == 'teachers':
+        teachers.remove(stringName)
+        people['teachers'] = teachers
+    elif role == 'staff':
+        staff.remove(stringName)
+        people['staff'] = staff
+    else:
+        return False
+    write_people(people)
+
 def write_people(dictIn):
     """Write the list of people to file"""
     with open(os.path.expanduser("~/.cmdb/data/people.json"), 'w+') as outFile:

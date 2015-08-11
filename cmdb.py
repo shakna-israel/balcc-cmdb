@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from bottle import route, run, template, redirect, request
-from processing import get_data, write_data, get_people, get_location, write_people
+from processing import get_data, write_data, get_people, get_location, write_people, remove_person
 
 @route('/')
 def index():
@@ -42,6 +42,23 @@ def add_person(name, role):
 @route('/added/<person>/<role>')
 def added_person(person, role):
     return template('wrote_person',person=person,role=role)
+
+@route('/del/person', method='GET')
+def form_delete_person():
+    people = get_people()
+    teachers = people['teachers']
+    staff = people['staff']
+    students = people['students']
+    return template('remove_person',teachers=teachers,staff=staff,students=students)
+
+@route('/del/person', method='POST')
+def form_delete_person_submitted():
+    submission = request.forms.get('name')
+    submission = submission.split(':')
+    userRole = submission[0]
+    userName = submission[1]
+    remove_person(userName, userRole)
+    redirect('/')
 
 @route('/create', method='GET')
 def create_get():

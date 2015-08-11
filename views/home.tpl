@@ -26,7 +26,7 @@ td.unknown {
         <p><a href="/new/person">Create New User</a></p>
     </div>
     <div class="col">
-        <p><a href="/del/person">Delete Existing User (Unimplemented)</a></p>
+        <p><a href="/del/person">Delete Existing User</a></p>
     </div>
     <div class="col">
         <p><a href="/edit/person">Edit Existing User (Unimplemented)</a></p>
