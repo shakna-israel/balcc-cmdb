@@ -93,14 +93,14 @@ def expand_data(dictIn):
                 elif diff >= 7 and diff <= 8:
                     try:
                         valueCost = int(dictIn[device]['Cost'])
-                        currentWorth = (valueCost / 3)
+                        currentWorth = (valueCost / 4)
                         dictOut[device]['Current Worth'] = str(currentWorth)
                     except ValueError:
                         dictOut[device]['Current Worth'] = "UNKNOWN"
                 elif diff >= 8:
                     try:
                         valueCost = int(dictIn[device]['Cost'])
-                        currentWorth = (valueCost / 5)
+                        currentWorth = (valueCost / 6)
                         dictOut[device]['Current Worth'] = str(currentWorth)
                     except ValueError:
                         dictOut[device]['Current Worth'] = "UNKNOWN"
