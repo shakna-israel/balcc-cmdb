@@ -41,63 +41,63 @@ def expand_data(dictIn):
                 now = datetime.datetime.now()
                 diffTime = now - purchaseDate
                 diff = int(diffTime.days/365)
-                if diff > 0 and diff < 1:
+                if diff >= 0 and diff <= 1:
                     try:
                         valueCost = int(dictIn[device]['Cost'])
                         currentWorth = (valueCost / 1.10)
                         dictOut[device]['Current Worth'] = str(currentWorth)
                     except ValueError:
                         dictOut[device]['Current Worth'] = "UNKNOWN"
-                elif diff > 1 and diff < 2:
+                elif diff >= 1 and diff <= 2:
                     try:
                         valueCost = int(dictIn[device]['Cost'])
                         currentWorth = (valueCost / 1.25)
                         dictOut[device]['Current Worth'] = str(currentWorth)
                     except ValueError:
                         dictOut[device]['Current Worth'] = "UNKNOWN"
-                elif diff > 2 and diff < 3:
+                elif diff >= 2 and diff <= 3:
                     try:
                         valueCost = int(dictIn[device]['Cost'])
                         currentWorth = (valueCost / 1.5)
                         dictOut[device]['Current Worth'] = str(currentWorth)
                     except ValueError:
                         dictOut[device]['Current Worth'] = "UNKNOWN"
-                elif diff > 3 and diff < 4:
+                elif diff >= 3 and diff <= 4:
                     try:
                         valueCost = int(dictIn[device]['Cost'])
                         currentWorth = (valueCost / 1.65)
                         dictOut[device]['Current Worth'] = str(currentWorth)
                     except ValueError:
                         dictOut[device]['Current Worth'] = "UNKNOWN"
-                elif diff > 4 and diff < 5:
+                elif diff >= 4 and diff <= 5:
                     try:
                         valueCost = int(dictIn[device]['Cost'])
                         currentWorth = (valueCost / 1.75)
                         dictOut[device]['Current Worth'] = str(currentWorth)
                     except ValueError:
                         dictOut[device]['Current Worth'] = "UNKNOWN"
-                elif diff > 5 and diff < 6:
+                elif diff >= 5 and diff <= 6:
                     try:
                         valueCost = int(dictIn[device]['Cost'])
                         currentWorth = (valueCost / 2)
                         dictOut[device]['Current Worth'] = str(currentWorth)
                     except ValueError:
                         dictOut[device]['Current Worth'] = "UNKNOWN"
-                elif diff > 6 and diff < 7:
+                elif diff >= 6 and diff <= 7:
                     try:
                         valueCost = int(dictIn[device]['Cost'])
                         currentWorth = (valueCost / 2.5)
                         dictOut[device]['Current Worth'] = str(currentWorth)
                     except ValueError:
                         dictOut[device]['Current Worth'] = "UNKNOWN"
-                elif diff > 7 and diff < 8:
+                elif diff >= 7 and diff <= 8:
                     try:
                         valueCost = int(dictIn[device]['Cost'])
                         currentWorth = (valueCost / 3)
                         dictOut[device]['Current Worth'] = str(currentWorth)
                     except ValueError:
                         dictOut[device]['Current Worth'] = "UNKNOWN"
-                elif diff > 8:
+                elif diff >= 8:
                     try:
                         valueCost = int(dictIn[device]['Cost'])
                         currentWorth = (valueCost / 5)
