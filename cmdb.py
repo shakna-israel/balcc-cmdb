@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from bottle import route, run, template, redirect, request
-from processing import get_data, write_data, get_people, get_location, write_people, remove_person
+from processing import get_data, write_data, get_people, get_location, write_people, remove_person, replace_user_data
 
 @route('/')
 def index():
@@ -38,6 +38,31 @@ def add_person(name, role):
         redirect('/added/' + name + '/' + role)
     else:
         redirect('/')
+
+@route('/edit/person', method='GET')
+def form_edit_person():
+    people = get_people()
+    teachers = people['teachers']
+    staff = people['staff']
+    students = people['students']
+    return template('edit_person',teachers=teachers,staff=staff,students=students)
+
+@route('/edit/person', method='POST')
+def form_edit_person_submitted():
+    submission = request.forms.get('name')
+    submission = submission.split(':')
+    userRole = submission[0]
+    userName = submission[1]
+    originalUserName = submission[1]
+    remove_person(userName, userRole)
+    if request.forms.get('new_name'):
+        userName = request.forms.get('new_name')
+    if request.forms.get('new_role'):
+        userRole = request.forms.get('new_role')
+
+    replace_user_data(originalUserName, userName)
+
+    redirect('/add/' + userName + '/' + userRole)
 
 @route('/added/<person>/<role>')
 def added_person(person, role):
@@ -82,10 +107,7 @@ def create_post():
     deviceAssignedTo = request.forms.get('assigned-to')
     devicePhysicalLocation = request.forms.get('physical-location')
     deviceStatus = request.forms.get('status')
-    try:
-        deviceName = deviceSNID + deviceAssignedTo
-    except TypeError:
-        deviceName = deviceSNID
+    deviceName = deviceSNID
     devices = get_data()
     devices[deviceName] = {}
     devices[deviceName]['Type'] = deviceType

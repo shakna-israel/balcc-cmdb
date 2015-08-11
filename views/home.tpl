@@ -29,7 +29,7 @@ td.unknown {
         <p><a href="/del/person">Delete Existing User</a></p>
     </div>
     <div class="col">
-        <p><a href="/edit/person">Edit Existing User (Unimplemented)</a></p>
+        <p><a href="/edit/person">Edit Existing User</a></p>
     </div>
 </div>
 <div class="row">
@@ -48,6 +48,7 @@ td.unknown {
         <td>IP</td>
         <td>MAC</td>
         <td>Purchase Date</td>
+        <td>Estimated Worth</td>
         <td>Age</td>
         <td>License</td>
         <td>Cost</td>
@@ -95,6 +96,11 @@ td.unknown {
                 <td contenteditable='true' class="unknown">{{data[device]['Purchase Date']}}</td>
             % else:
                 <td contenteditable='true'>{{data[device]['Purchase Date']}}</td>
+            % end
+            % if data[device]['Current Worth'] == 'UNKNOWN':
+                <td contenteditable='true' class="unknown">{{data[device]['Current Worth']}}</td>
+            % else:
+                <td contenteditable='true'>${{data[device]['Current Worth']}}</td>
             % end
             % if data[device]['Age'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown">{{data[device]['Age']}}</td>
