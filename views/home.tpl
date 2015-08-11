@@ -12,8 +12,31 @@ td.unknown {
     background-color: rgba(0, 0, 0, 0.8);
     color: rgb(255,255,255);
 }
+@media (min-width: 30em) {
+    .row { width: 100%; display: table; table-layout: fixed; }
+    .col { display: table-cell; }
+}
 </style>
 <body>
+<div class="row">
+    <div class="col">
+        <p><a href="/create">Create New Device</a></p>
+    </div>
+    <div class="col">
+        <p><a href="/new/person">Create New User</a></p>
+    </div>
+    <div class="col">
+        <p><a href="/del/person">Delete Existing User (Unimplemented)</a></p>
+    </div>
+    <div class="col">
+        <p><a href="/edit/person">Edit Existing User (Unimplemented)</a></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <input value="Submit Changes (Unimplemented)" type="submit" />
+    </div>
+</div>
 % if data:
         <table class="pure-table">
         <thead>
@@ -42,101 +65,106 @@ td.unknown {
         <tbody>
         % for device in data:
             <tr>
-            <td>{{device}}</td>
+            <td contenteditable='true'>{{device}}</td>
             % if data[device]['SNID'] == 'UNKNOWN':
-                <td class="unknown">{{data[device]['SNID']}}</td>
+                <td contenteditable='true' class="unknown">{{data[device]['SNID']}}</td>
             % else:
-                <td>{{data[device]['SNID']}}</td>
+                <td contenteditable='true'>{{data[device]['SNID']}}</td>
             % end
             % if data[device]['Type'] == 'UNKNOWN':
-                <td class="unknown">{{data[device]['Type']}}</td>
+                <td contenteditable='true' class="unknown">{{data[device]['Type']}}</td>
             % else:
-                <td>{{data[device]['Type']}}</td>
+                <td contenteditable='true'>{{data[device]['Type']}}</td>
             % end
             % if data[device]['Model'] == 'UNKNOWN':
-                <td class="unknown">{{data[device]['Model']}}</td>
+                <td contenteditable='true' class="unknown">{{data[device]['Model']}}</td>
             % else:
-                <td>{{data[device]['Model']}}</td>
+                <td contenteditable='true'>{{data[device]['Model']}}</td>
             % end
             % if data[device]['IP'] == 'UNKNOWN':
-                <td class="unknown">{{data[device]['IP']}}</td>
+                <td contenteditable='true' class="unknown">{{data[device]['IP']}}</td>
             % else:
-                <td>{{data[device]['IP']}}</td>
+                <td contenteditable='true'>{{data[device]['IP']}}</td>
             % end
             % if data[device]['MAC'] == 'UNKNOWN':
-                <td class="unknown">{{data[device]['MAC']}}</td>
+                <td contenteditable='true' class="unknown">{{data[device]['MAC']}}</td>
             % else:
-                <td>{{data[device]['MAC']}}</td>
+                <td contenteditable='true'>{{data[device]['MAC']}}</td>
             % end
             % if data[device]['Purchase Date'] == 'UNKNOWN':
-                <td class="unknown">{{data[device]['Purchase Date']}}</td>
+                <td contenteditable='true' class="unknown">{{data[device]['Purchase Date']}}</td>
             % else:
-                <td>{{data[device]['Purchase Date']}}</td>
+                <td contenteditable='true'>{{data[device]['Purchase Date']}}</td>
             % end
             % if data[device]['Age'] == 'UNKNOWN':
-                <td class="unknown">{{data[device]['Age']}}</td>
+                <td contenteditable='true' class="unknown">{{data[device]['Age']}}</td>
             % else:
-                <td>{{data[device]['Age']}}</td>
+                <td contenteditable='true'>{{data[device]['Age']}}</td>
             % end
             % if data[device]['License'] == 'UNKNOWN':
-                <td class="unknown">{{data[device]['License']}}</td>
+                <td contenteditable='true' class="unknown">{{data[device]['License']}}</td>
             % else:
-                <td>{{data[device]['License']}}</td>
+                <td contenteditable='true'>{{data[device]['License']}}</td>
             % end
             % if data[device]['Cost'] == 'UNKNOWN':
-                <td class="unknown">{{data[device]['Cost']}}</td>
+                <td contenteditable='true' class="unknown">{{data[device]['Cost']}}</td>
             % else:
-                <td>{{data[device]['Cost']}}</td>
+                <td>${{data[device]['Cost']}}</td>
             % end
             % if data[device]['Operating System'] == 'UNKNOWN':
-                <td class="unknown">{{data[device]['Operating System']}}</td>
+                <td contenteditable='true' class="unknown">{{data[device]['Operating System']}}</td>
             % else:
-                <td>data[device]['Operating System']</td>
+                <td contenteditable='true'>{{data[device]['Operating System']}}</td>
             % end
             % if data[device]['Physical Location'] == 'UNKNOWN':
-                <td class="unknown">{{data[device]['Physical Location']}}</td>
+                <td contenteditable='true' class="unknown">{{data[device]['Physical Location']}}</td>
             % else:
-                <td>{{data[device]['Physical Location']}}</td>
+                <td contenteditable='true'>{{data[device]['Physical Location']}}</td>
             % end
             % if data[device]['Phone Type'] == 'UNKNOWN':
-                <td class="unknown">{{data[device]['Phone Type']}}</td>
+                <td contenteditable='true' class="unknown">{{data[device]['Phone Type']}}</td>
             % else:
-                <td>{{data[device]['Phone Type']}}</td>
+                <td contenteditable='true'>{{data[device]['Phone Type']}}</td>
             % end
             % if data[device]['Phone Number'] == 'UNKNOWN':
-                <td class="unknown">{{data[device]['Phone Number']}}</td>
+                <td contenteditable='true' class="unknown">{{data[device]['Phone Number']}}</td>
             % else:
-                <td>{{data[device]['Phone Number']}}</td>
+                <td contenteditable='true'>{{data[device]['Phone Number']}}</td>
             % end
             % if data[device]['Depends On'] == 'UNKNOWN':
-                <td class="unknown">{{data[device]['Depends On']}}</td>
+                <td contenteditable='true' class="unknown">{{data[device]['Depends On']}}</td>
             % else:
-                <td>{{data[device]['Depends On']}}</td>
+                <td contenteditable='true'>{{data[device]['Depends On']}}</td>
             % end
             % if data[device]['Assigned To'] == 'UNKNOWN':
-                <td class="unknown">{{data[device]['Assigned To']}}</td>
+                <td contenteditable='true' class="unknown">{{data[device]['Assigned To']}}</td>
             % else:
-                <td>{{data[device]['Assigned To']}}</td>
+                <td contenteditable='true'>{{data[device]['Assigned To']}}</td>
             % end
             % if data[device]['Status'] == 'UNKNOWN':
-                <td class="unknown">{{data[device]['Status']}}</td>
+                <td contenteditable='true' class="unknown">{{data[device]['Status']}}</td>
             % else:
-                <td>{{data[device]['Status']}}</td>
+                <td contenteditable='true'>{{data[device]['Status']}}</td>
             % end
             % if data[device]['Expiry Date'] == 'UNKNOWN':
-                <td class="unknown">{{data[device]['Expiry Date']}}</td>
+                <td contenteditable='true' class="unknown">{{data[device]['Expiry Date']}}</td>
             % else:
-                <td>{{data[device]['Expiry Date']}}</td>
+                <td contenteditable='true'>{{data[device]['Expiry Date']}}</td>
             % end
             % if data[device]['General Comments'] == 'UNKNOWN':
-                <td class="unknown">{{data[device]['General Comments']}}</td>
+                <td contenteditable='true' class="unknown">{{data[device]['General Comments']}}</td>
             % else:
-                <td>{{data[device]['General Comments']}}</td>
+                <td contenteditable='true'>{{data[device]['General Comments']}}</td>
             % end
             </tr>
         % end
         </tbody>
         </table>
+        <div class="row">
+            <div class="col">
+                <input value="Submit Changes (Unimplemented)" type="submit" />
+            </div>
+        </div>
 % else:
     <p>No Data Found</p>
 % end

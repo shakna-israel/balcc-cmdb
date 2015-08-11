@@ -47,7 +47,7 @@ body {
 	</div>
 	<div class="col">
 		<p>Depends On:</p>
-		<select value="depends-on">
+		<select name="depends-on">
 		<option value="UNKNOWN">Unknown</option>
 		% for item in devices:
 		    <option value="{{item}}">{{item}}</option>
@@ -87,12 +87,12 @@ body {
 	<div class="col">
 		<p>Status:</p>
 		<select name="status">
-		<option value="UNKNOWN">Unknown</option>
-		<option value="New">New</option>
-		<option value="Ok">Ok</option>
-		<option value="Serviceable">Serviceable</option>
-		<option value="Service Required">Service Required</option>
-		<option value="Replacement Required">Replacement Required</option>
+			<option value="UNKNOWN">Unknown</option>
+			<option value="New">New</option>
+			<option value="Ok">Ok</option>
+			<option value="Serviceable">Serviceable</option>
+			<option value="Service Required">Service Required</option>
+			<option value="Replacement Required">Replacement Required</option>
 		</select></br>
 	</div>
 

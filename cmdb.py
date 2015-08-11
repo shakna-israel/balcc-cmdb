@@ -2,12 +2,46 @@
 # -*- coding: utf-8 -*-
 
 from bottle import route, run, template, redirect, request
-from processing import get_data, write_data, get_people, get_location
+from processing import get_data, write_data, get_people, get_location, write_people
 
 @route('/')
 def index():
     data = get_data()
     return template('home',data=data)
+
+@route('/new/person', method='GET')
+def form_person():
+    return template('generate_person')
+
+@route('/new/person', method='POST')
+def form_person_fetch():
+    name = request.forms.get('name')
+    role = request.forms.get('role')
+    redirect('/add/' + name + '/' + role)
+
+@route('/add/<name>/<role>')
+def add_person(name, role):
+    if role == 'students':
+        people = get_people()
+        people['students'].append(name)
+        write_people(people)
+        redirect('/added/' + name + '/' + role)
+    elif role == 'teachers':
+        people = get_people()
+        people['teachers'].append(name)
+        write_people(people)
+        redirect('/added/' + name + '/' + role)
+    elif role == 'staff':
+        people = get_people()
+        people['staff'].append(name)
+        write_people(people)
+        redirect('/added/' + name + '/' + role)
+    else:
+        redirect('/')
+
+@route('/added/<person>/<role>')
+def added_person(person, role):
+    return template('wrote_person',person=person,role=role)
 
 @route('/create', method='GET')
 def create_get():
@@ -16,6 +50,7 @@ def create_get():
     teachers = get_people()['teachers']
     students = get_people()['students']
     locations = get_location()
+    print(locations)
     dataFields = ['Router','Switch','Barrix','Software - Individual', 'Software - Subscription','Hub','Desktop Computer','Laptop','Projector','Speakers','Television - CRT', 'Television - LCD', 'Phone']
     return template('generate', dataFields=dataFields, devices=devices, staff=staff, teachers=teachers, students=students, locations=locations)
 
@@ -74,16 +109,31 @@ def create_post_more(name):
     deviceSNID = request.forms.get('snid')
     if name == 'phone':
         devicePhone = request.forms.get('phone-number')
-        for key in devices.keys():
-            for value in devices.values():
-                if item['SNID'] == 'deviceSNID':
-                    item['Phone Number'] == 'devicePhone'
+        for value in devices.values():
+            if value['SNID'] == deviceSNID:
+                value['Phone Number'] == 'devicePhone'
         write_data(devices)
         redirect('/')
     elif name == 'pc':
-        do
+        deviceIP = request.forms.get('ip_address')
+        deviceMAC = request.forms.get('mac_address')
+        deviceOS = request.forms.get('operating_system')
+        for value in devices.values():
+            if value['SNID'] == deviceSNID:
+                value['IP'] = deviceIP
+                value['MAC'] = deviceMAC
+                value['Operating System'] = deviceOS
+        write_data(devices)
+        redirect('/')
     elif name == 'software':
-        do
+        deviceLicense = request.forms.get('license')
+        deviceExpiry = request.forms.get('expiry_date')
+        for value in devices.values():
+            if value['SNID'] == deviceSNID:
+                value['License'] = deviceLicense
+                value['Expiry Date'] = deviceExpiry
+        write_data(devices)
+        redirect('/')
     else:
         redirect('/')
 
