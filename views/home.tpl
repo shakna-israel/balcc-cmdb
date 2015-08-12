@@ -4,8 +4,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <style>
+.hidden {
+    display:none;
+}
 td {
-    font-size: 0.7em !important;
+    font-size: 0.67em !important;
 }
 td.unknown {
     background-color: rgb(0, 0, 0);
@@ -169,11 +172,13 @@ td.green {
     % end
     
 </div>
+
 <div class="row">
     <div class="col">
-        <input value="Submit Changes (Unimplemented)" type="submit" />
+        <small>Do not use the characters '|' or '%'</small>
     </div>
 </div>
+
 % if data:
         <table class="pure-table">
         <thead>
@@ -313,37 +318,58 @@ td.green {
         % end
     </tbody>
     </table>
-    <div class="row">
-        <div class="col">
-            <input value="Submit Changes (Unimplemented)" type="submit" />
-        </div>
-    </div>
 % else:
     <p>No Data Found</p>
 % end
 
+<form action="/edit/tableData" method="POST">
+<input name="data" type="text" id="tableDataPost" class="hidden" />
+<input onclick="onSubmit()" value="Submit Changes" type="submit" />
+</form>
+
 <script>
-% for device in data:
-var {{device.replace(" ","_") + '$name'}} = document.getElementById("{{device.replace(" ","_") + '$name'}}");
-var {{device.replace(" ","_") + '$snid'}} = document.getElementById("{{device.replace(" ","_") + '$snid'}}");
-var {{device.replace(" ","_") + '$type'}} = document.getElementById("{{device.replace(" ","_") + '$type'}}");
-var {{device.replace(" ","_") + '$model'}} = document.getElementById("{{device.replace(" ","_") + '$model'}}");
-var {{device.replace(" ","_") + '$name'}} = document.getElementById("{{device.replace(" ","_") + '$name'}}");
-var {{device.replace(" ","_") + '$IP'}} = document.getElementById("{{device.replace(" ","_") + '$IP'}}");
-var {{device.replace(" ","_") + '$MAC'}} = document.getElementById("{{device.replace(" ","_") + '$MAC'}}");
-var {{device.replace(" ","_") + '$PurchaseDate'}} = document.getElementById("{{device.replace(" ","_") + '$PurchaseDate'}}");
-var {{device.replace(" ","_") + '$License'}} = document.getElementById("{{device.replace(" ","_") + '$License'}}");
-var {{device.replace(" ","_") + '$Cost'}} = document.getElementById("{{device.replace(" ","_") + '$Cost'}}");
-var {{device.replace(" ","_") + '$OS'}} = document.getElementById("{{device.replace(" ","_") + '$OS'}}");
-var {{device.replace(" ","_") + '$Location'}} = document.getElementById("{{device.replace(" ","_") + '$Location'}}");
-var {{device.replace(" ","_") + '$PhoneType'}} = document.getElementById("{{device.replace(" ","_") + '$PhoneType'}}");
-var {{device.replace(" ","_") + '$PhoneNumber'}} = document.getElementById("{{device.replace(" ","_") + '$PhoneNumber'}}");
-var {{device.replace(" ","_") + '$DependsOn'}} = document.getElementById("{{device.replace(" ","_") + '$DependsOn'}}");
-var {{device.replace(" ","_") + '$AssignedTo'}} = document.getElementById("{{device.replace(" ","_") + '$AssignedTo'}}");
-var {{device.replace(" ","_") + '$Status'}} = document.getElementById("{{device.replace(" ","_") + '$Status'}}");
-var {{device.replace(" ","_") + '$ExpiryDate'}} = document.getElementById("{{device.replace(" ","_") + '$ExpiryDate'}}");
-var {{device.replace(" ","_") + '$GeneralComments'}} = document.getElementById("{{device.replace(" ","_") + '$GeneralComments'}}");
-% end
+function onSubmit() {
+    var tableDataPost = document.getElementById('tableDataPost')
+    tableDataPost.value = ""
+    % for device in data:
+        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$name'}}").innerHTML
+        tableDataPost.value += '|'
+        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$snid'}}").innerHTML
+        tableDataPost.value += '|'
+        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$type'}}").innerHTML
+        tableDataPost.value += '|'
+        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$model'}}").innerHTML
+        tableDataPost.value += '|'
+        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$IP'}}").innerHTML
+        tableDataPost.value += '|'
+        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$MAC'}}").innerHTML
+        tableDataPost.value += '|'
+        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$PurchaseDate'}}").innerHTML
+        tableDataPost.value += '|'
+        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$License'}}").innerHTML
+        tableDataPost.value += '|'
+        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$Cost'}}").innerHTML
+        tableDataPost.value += '|'
+        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$OS'}}").innerHTML
+        tableDataPost.value += '|'
+        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$Location'}}").innerHTML
+        tableDataPost.value += '|'
+        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$PhoneType'}}").innerHTML
+        tableDataPost.value += '|'
+        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$PhoneNumber'}}").innerHTML
+        tableDataPost.value += '|'
+        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$DependsOn'}}").innerHTML
+        tableDataPost.value += '|'
+        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$AssignedTo'}}").innerHTML
+        tableDataPost.value += '|'
+        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$Status'}}").innerHTML
+        tableDataPost.value += '|'
+        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$ExpiryDate'}}").innerHTML
+        tableDataPost.value += '|'
+        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$GeneralComments'}}").innerHTML
+        tableDataPost.value += '%'
+    % end
+}
 </script>
 
 </body>

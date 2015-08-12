@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from bottle import route, run, template, redirect, request
-from processing import get_data, write_data, get_people, get_location, write_people, remove_person, replace_user_data
+from processing import get_data, write_data, get_people, get_location, write_people, remove_person, replace_user_data, process_table_data
 
 @route('/')
 def index():
@@ -175,5 +175,11 @@ def create_post_more(name):
         redirect('/')
     else:
         redirect('/')
+
+@route('/edit/tableData', method='POST')
+def get_table_changes():
+    tableData = request.forms.get('data')
+    process_table_data(tableData)
+    redirect('/')
 
 run(host='0.0.0.0', port=8080)

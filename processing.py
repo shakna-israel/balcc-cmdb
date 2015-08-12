@@ -167,6 +167,11 @@ def write_data(dictIn):
     with open(os.path.expanduser("~/.cmdb/data/cmdb.json"), 'w+') as outFile:
         json.dump(dictIn, outFile, sort_keys = True, indent = 4, ensure_ascii = False)
 
+def backup_data():
+    data = get_data()
+    with open(os.path.expanduser("~/.cmdb/data/cmdb.json.bak"), 'w+') as outFile:
+        json.dump(data, outFile, sort_keys = True, indent = 4, ensure_ascii = False)
+
 def get_people():
     """Get the registered list of people"""
     if not os.path.isdir(os.path.expanduser("~/.cmdb/data")):
@@ -249,3 +254,54 @@ def replace_user_data(originalUser, newUser):
         if originalUser == devices[device]['Assigned To']:
             outDevices[device]['Assigned To'] = newUser
     write_data(outDevices)
+
+def replace_device_data(dictIn):
+    os.remove(os.path.expanduser("~/.cmdb/data/cmdb.json"))
+    write_data(dictIn)
+
+def process_table_data(longString):
+    backup_data()
+    dictOut = {}
+    deviceList = longString.split('%')
+    for device in deviceList:
+        deviceAttributes = device.split('|')
+        try:
+            deviceName = deviceAttributes[0]
+            deviceSNID = deviceAttributes[1]
+            deviceType = deviceAttributes[2]
+            deviceModel = deviceAttributes[3]
+            deviceIP = deviceAttributes[4]
+            deviceMAC = deviceAttributes[5]
+            devicePurchaseDate = deviceAttributes[6]
+            deviceLicense = deviceAttributes[7]
+            deviceCost = deviceAttributes[8]
+            deviceOS = deviceAttributes[9]
+            deviceLocation = deviceAttributes[10]
+            devicePhoneType = deviceAttributes[11]
+            devicePhoneNumber = deviceAttributes[12]
+            deviceDependsOn = deviceAttributes[13]
+            deviceAssignedTo = deviceAttributes[14]
+            deviceStatus = deviceAttributes[15]
+            deviceExpiryDate = deviceAttributes[16]
+            deviceGeneralComments = deviceAttributes[17]
+            dictOut[deviceName] = {}
+            dictOut[deviceName]['SNID'] = deviceSNID
+            dictOut[deviceName]['Type'] = deviceType
+            dictOut[deviceName]['Model'] = deviceModel
+            dictOut[deviceName]['IP'] = deviceIP
+            dictOut[deviceName]['MAC'] = deviceMAC
+            dictOut[deviceName]['Purchase Date'] = devicePurchaseDate
+            dictOut[deviceName]['License'] = deviceLicense
+            dictOut[deviceName]['Cost'] = deviceCost
+            dictOut[deviceName]['Operating System'] = deviceOS
+            dictOut[deviceName]['Physical Location'] = deviceLocation
+            dictOut[deviceName]['Phone Type'] = devicePhoneType
+            dictOut[deviceName]['Phone Number'] = devicePhoneNumber
+            dictOut[deviceName]['Depends On'] = deviceDependsOn
+            dictOut[deviceName]['Assigned To'] = deviceAssignedTo
+            dictOut[deviceName]['Status'] = deviceStatus
+            dictOut[deviceName]['Expiry Date'] = deviceExpiryDate
+            dictOut[deviceName]['General Comments'] = deviceGeneralComments
+        except IndexError:
+            pass
+    replace_device_data(dictOut)
