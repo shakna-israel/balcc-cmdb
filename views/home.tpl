@@ -176,6 +176,7 @@ td.green {
 <div class="row">
     <div class="col">
         <small>Do not use the characters '|' or '%'</small>
+        <small>Replace SNID with 'REMOVE' to delete item.</small>
     </div>
 </div>
 
