@@ -1,4 +1,3 @@
 (A) 2015-08-12 Highlight row for warnings - Warn If: PC but no IP or MAC, Phone but no Number, Status is Service Required or Replacement Required
-(A) 2015-08-12 Strip HTML Tags from data table before POSTing it
 (B) 2015-08-12 Search and Filter Functions
 (C) 2015-08-12 Insert existing data

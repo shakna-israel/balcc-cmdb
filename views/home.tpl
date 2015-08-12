@@ -447,7 +447,9 @@ function onSubmit() {
         tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$GeneralComments'}}").innerHTML
         tableDataPost.value += '%'
     % end
-    console.log(tableDataPost.value)
+    var tableDataClean = tableDataPost.value
+    tableDataCleanTrue = tableDataClean.replace(/(<([^>]+)>)/ig, "")
+    tableDataPost.value = tableDataCleanTrue
 }
 </script>
 
