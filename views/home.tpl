@@ -175,7 +175,7 @@ td.green {
 
 <div class="row">
     <div class="col">
-        <small>Do not use the characters '|' or '%'</small></br>
+        <small>Do not use the characters <em>%</em>, <em>|</em>, <em>'</em> or <em>"</em> inside the table.</small></br>
         <small>Replace SNID with 'REMOVE' to delete item.</small>
     </div>
 </div>

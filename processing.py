@@ -22,10 +22,20 @@ def prevent_key_errors(dictIn, keyForce):
 def round_value(inValue):
     return math.ceil(int(inValue)*100/100)
 
+def remove_characters(dictOut, dictIn, device, charList, keyList):
+    for key in keyList:
+        for item in charList:
+            dictOut[device][key] = dictIn[device][key].replace(item,"")
+    return dictOut
+
 def expand_data(dictIn):
     """Take the data given and make assumptions about it"""
     dictOut = dictIn
     for device in dictIn:
+        # Remove unacceptable characters
+        charList = ['"',"'","%","$","|"]
+        keyList = ['SNID', 'Type', 'Model', 'IP', 'MAC', 'Purchase Date', 'Age', 'License', 'Cost', 'Current Worth', 'Operating System', 'Physical Location', 'Phone Type', 'Phone Number', 'Depends On', 'Assigned To', 'Status', 'Expiry Date', 'General Comments']
+        dictOut = remove_characters(dictOut, dictIn, device, charList, keyList)
         # Calculate the age of the device and insert into Age
         try:
             date_format = "%d/%m/%Y"
