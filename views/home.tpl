@@ -40,12 +40,16 @@ td.green {
     background-color: rgba(0, 128, 0, 0.8);
     color: rgb(255,255,255);
 }
+.container {
+    width:100%;
+}
 @media (min-width: 30em) {
     .row { width: 100%; display: table; table-layout: fixed; }
     .col { display: table-cell; }
+    .container { width: 95%; margin-right: auto; margin-left: auto; }
 }
 </style>
-<body>
+<body class="container">
 <div class="row">
     <div class="col">
         <p><a href="/create">Create New Device</a></p>
