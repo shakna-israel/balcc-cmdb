@@ -265,7 +265,8 @@ def process_table_data(longString):
     deviceList = longString.split('%')
     for device in deviceList:
         deviceAttributes = device.split('|')
-        try:
+        print(deviceAttributes)
+        if deviceAttributes[0] != '':
             deviceName = deviceAttributes[0]
             deviceSNID = deviceAttributes[1]
             deviceType = deviceAttributes[2]
@@ -302,6 +303,4 @@ def process_table_data(longString):
             dictOut[deviceName]['Status'] = deviceStatus
             dictOut[deviceName]['Expiry Date'] = deviceExpiryDate
             dictOut[deviceName]['General Comments'] = deviceGeneralComments
-        except IndexError:
-            pass
     replace_device_data(dictOut)

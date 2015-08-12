@@ -324,7 +324,7 @@ td.green {
 
 <form action="/edit/tableData" method="POST">
 <input name="data" type="text" id="tableDataPost" class="hidden" />
-<input onclick="onSubmit()" value="Submit Changes" type="submit" />
+<input onclick="onSubmit()" value="Submit Changes (Broken)" type="submit" />
 </form>
 
 <script>
@@ -348,7 +348,7 @@ function onSubmit() {
         tableDataPost.value += '|'
         tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$License'}}").innerHTML
         tableDataPost.value += '|'
-        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$Cost'}}").innerHTML
+        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$Cost'}}").innerHTML.replace('$','')
         tableDataPost.value += '|'
         tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$OS'}}").innerHTML
         tableDataPost.value += '|'
@@ -369,6 +369,7 @@ function onSubmit() {
         tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$GeneralComments'}}").innerHTML
         tableDataPost.value += '%'
     % end
+    console.log(tableDataPost.value)
 }
 </script>
 
