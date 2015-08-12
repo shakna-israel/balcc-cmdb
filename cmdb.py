@@ -181,4 +181,9 @@ def get_table_changes():
     process_table_data(tableData)
     redirect('/')
 
+@route('/query/')
+def search_function():
+    #http://bottlepy.org/docs/dev/tutorial.html#query-variables
+    return "Not Yet Implemented"
+
 run(host='0.0.0.0', port=8080)
