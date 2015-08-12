@@ -68,11 +68,11 @@ td.green {
         % if device['Status'] == 'New':
             % deviceCountNew += 1
         % end
-        % if deviceCountNew > 0:
-            <div class="col">
-                <p>{{deviceCountNew}} new devices.</p>
-            </div>
-        % end
+    % end
+    % if deviceCountNew > 0:
+        <div class="col">
+            <p>{{deviceCountNew}} new devices.</p>
+        </div>
     % end
     
     
@@ -81,11 +81,11 @@ td.green {
         % if device['Status'] == 'Ok':
             % deviceCountOk += 1
         % end
-        % if deviceCountOk > 0:
-            <div class="col">
-                <p>{{deviceCountOk}} ok devices.</p>
-            </div>
-        % end
+    % end
+    % if deviceCountOk > 0:
+        <div class="col">
+            <p>{{deviceCountOk}} ok devices.</p>
+        </div>
     % end
     
     
@@ -94,47 +94,51 @@ td.green {
         % if device['Status'] == 'Serviceable':
             % deviceCountServiceable += 1
         % end
-        % if deviceCountServiceable > 0:
-            <div class="col">
-                <p>{{deviceCountServiceable}} serviceable devices.</p>
-            </div>
+    % end
+    % if deviceCountServiceable > 0:
+        <div class="col">
+            <p>{{deviceCountServiceable}} serviceable devices.</p>
+        </div>
+    % end
+    
+    
+    % deviceCountServiceRequired = 0
+    % for device in data.values():
+        % if device['Status'] == 'Service Required':
+            % deviceCountServiceRequired += 1
         % end
-    
-    
-        % deviceCountServiceRequired = 0
-        % for device in data.values():
-            % if device['Status'] == 'Service Required':
-                % deviceCountServiceRequired += 1
-            % end
-        % if deviceCountServiceRequired > 0:
-            <div class="col">
-                <p>Service Required for {{deviceCountServiceRequired}} devices.</p>
-            </div>
+    % end
+    % if deviceCountServiceRequired > 0:
+        <div class="col">
+            <p>Service Required for {{deviceCountServiceRequired}} devices.</p>
+        </div>
+    % end
+
+
+    % deviceCountReplacementRequired = 0
+    % for device in data.values():
+        % if device['Status'] == 'Replacement Required':
+            % deviceCountReplacementRequired += 1
         % end
-    
-    
-        % deviceCountReplacementRequired = 0
-        % for device in data.values():
-            % if device['Status'] == 'Replacement Required':
-                % deviceCountReplacementRequired += 1
-            % end
-        % if deviceCountReplacementRequired > 0:
-            <div class="col">
-                <p>Replacement Required for {{deviceCountReplacementRequired}} devices.</p>
-            </div>
+    % end
+    % if deviceCountReplacementRequired > 0:
+        <div class="col">
+            <p>Replacement Required for {{deviceCountReplacementRequired}} devices.</p>
+        </div>
+    % end
+
+
+    % deviceCountUnknownStatus = 0
+    % for device in data.values():
+        % if device['Status'] == 'UNKNOWN':
+            % deviceCountUnknownStatus += 1
         % end
-    
-    
-        % deviceCountUnknownStatus = 0
-        % for device in data.values():
-            % if device['Status'] == 'UNKNOWN':
-                % deviceCountUnknownStatus += 1
-            % end
-        % if deviceCountUnknownStatus > 0:
-            <div class="col">
-                <p>{{deviceCountUnknownStatus}} devices with an unknown status.</p>
-            </div>
-        % end
+    % end
+    % if deviceCountUnknownStatus > 0:
+        <div class="col">
+            <p>{{deviceCountUnknownStatus}} devices with an unknown status.</p>
+        </div>
+    % end
     
 </div>
 <div class="row">
@@ -279,13 +283,13 @@ td.green {
             % end
             </tr>
         % end
-        </tbody>
-        </table>
-        <div class="row">
-            <div class="col">
-                <input value="Submit Changes (Unimplemented)" type="submit" />
-            </div>
+    </tbody>
+    </table>
+    <div class="row">
+        <div class="col">
+            <input value="Submit Changes (Unimplemented)" type="submit" />
         </div>
+    </div>
 % else:
     <p>No Data Found</p>
 % end

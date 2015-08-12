@@ -4,6 +4,7 @@
 import json
 import os
 import datetime
+import math
 
 def prevent_key_errors(dictIn, keyForce):
     """Allow keys that don't exist, but are expected to, to take on default values"""
@@ -18,10 +19,14 @@ def prevent_key_errors(dictIn, keyForce):
         dictOut[keyForce] = "UNKNOWN"
     return dictOut
 
+def round_value(inValue):
+    return math.ceil(int(inValue)*100/100)
+
 def expand_data(dictIn):
     """Take the data given and make assumptions about it"""
     dictOut = dictIn
     for device in dictIn:
+        # Calculate the age of the device and insert into Age
         try:
             date_format = "%d/%m/%Y"
             purchaseDate = datetime.datetime.strptime(dictIn[device]['Purchase Date'], date_format)
@@ -32,9 +37,19 @@ def expand_data(dictIn):
             dictOut[device]['Age'] = "UNKNOWN"
         except TypeError:
             dictOut[device]['Age'] = "UNKNOWN"
+        # Display MAC Addresses nicely
         if dictIn[device]['MAC'] != "UNKNOWN":
             if ':' not in dictIn[device]['MAC']:
                 dictOut[device]['MAC'] = dictIn[device]['MAC'][:2].upper() + ":" + dictIn[device]['MAC'][2:4].upper() + ":" + dictIn[device]['MAC'][4:6].upper() + ":" + dictIn[device]['MAC'][6:8].upper() + ":" + dictIn[device]['MAC'][8:10].upper() + ":" + dictIn[device]['MAC'][10:12].upper()
+        # New devices older than one year should become Ok devices.
+        if dictIn[device]['Status'] == 'New':
+            purchaseDate = datetime.datetime.strptime(dictIn[device]['Purchase Date'], date_format)
+            now = datetime.datetime.now()
+            diffTime = now - purchaseDate
+            diff = int(diffTime.days/365)
+            if diff >= 1:
+                dictOut[device]['Status'] = 'Ok'
+        # Estimate current device worth
         if dictIn[device]['Cost'] != 'UNKNOWN':
             if dictIn[device]['Purchase Date'] != "UNKNOWN":
                 purchaseDate = datetime.datetime.strptime(dictIn[device]['Purchase Date'], date_format)
@@ -45,6 +60,7 @@ def expand_data(dictIn):
                     try:
                         valueCost = int(dictIn[device]['Cost'])
                         currentWorth = (valueCost / 1.10)
+                        currentWorth = round_value(currentWorth)
                         dictOut[device]['Current Worth'] = str(currentWorth)
                     except ValueError:
                         dictOut[device]['Current Worth'] = "UNKNOWN"
@@ -52,6 +68,7 @@ def expand_data(dictIn):
                     try:
                         valueCost = int(dictIn[device]['Cost'])
                         currentWorth = (valueCost / 1.25)
+                        currentWorth = round_value(currentWorth)
                         dictOut[device]['Current Worth'] = str(currentWorth)
                     except ValueError:
                         dictOut[device]['Current Worth'] = "UNKNOWN"
@@ -59,6 +76,7 @@ def expand_data(dictIn):
                     try:
                         valueCost = int(dictIn[device]['Cost'])
                         currentWorth = (valueCost / 1.5)
+                        currentWorth = round_value(currentWorth)
                         dictOut[device]['Current Worth'] = str(currentWorth)
                     except ValueError:
                         dictOut[device]['Current Worth'] = "UNKNOWN"
@@ -66,6 +84,7 @@ def expand_data(dictIn):
                     try:
                         valueCost = int(dictIn[device]['Cost'])
                         currentWorth = (valueCost / 1.65)
+                        currentWorth = round_value(currentWorth)
                         dictOut[device]['Current Worth'] = str(currentWorth)
                     except ValueError:
                         dictOut[device]['Current Worth'] = "UNKNOWN"
@@ -73,6 +92,7 @@ def expand_data(dictIn):
                     try:
                         valueCost = int(dictIn[device]['Cost'])
                         currentWorth = (valueCost / 1.75)
+                        currentWorth = round_value(currentWorth)
                         dictOut[device]['Current Worth'] = str(currentWorth)
                     except ValueError:
                         dictOut[device]['Current Worth'] = "UNKNOWN"
@@ -80,6 +100,7 @@ def expand_data(dictIn):
                     try:
                         valueCost = int(dictIn[device]['Cost'])
                         currentWorth = (valueCost / 2)
+                        currentWorth = round_value(currentWorth)
                         dictOut[device]['Current Worth'] = str(currentWorth)
                     except ValueError:
                         dictOut[device]['Current Worth'] = "UNKNOWN"
@@ -87,6 +108,7 @@ def expand_data(dictIn):
                     try:
                         valueCost = int(dictIn[device]['Cost'])
                         currentWorth = (valueCost / 2.5)
+                        currentWorth = round_value(currentWorth)
                         dictOut[device]['Current Worth'] = str(currentWorth)
                     except ValueError:
                         dictOut[device]['Current Worth'] = "UNKNOWN"
@@ -94,6 +116,7 @@ def expand_data(dictIn):
                     try:
                         valueCost = int(dictIn[device]['Cost'])
                         currentWorth = (valueCost / 4)
+                        currentWorth = round_value(currentWorth)
                         dictOut[device]['Current Worth'] = str(currentWorth)
                     except ValueError:
                         dictOut[device]['Current Worth'] = "UNKNOWN"
@@ -101,6 +124,7 @@ def expand_data(dictIn):
                     try:
                         valueCost = int(dictIn[device]['Cost'])
                         currentWorth = (valueCost / 6)
+                        currentWorth = round_value(currentWorth)
                         dictOut[device]['Current Worth'] = str(currentWorth)
                     except ValueError:
                         dictOut[device]['Current Worth'] = "UNKNOWN"
@@ -129,7 +153,7 @@ def get_data():
     else:
         with open(os.path.expanduser("~/.cmdb/data/cmdb.json"),'r') as inFile:
             touchData = json.load(inFile)
-    dataFields = ['SNID', 'Type', 'Model', 'IP', 'MAC', 'Purchase Date', 'Age', 'License', 'Cost', 'Current Worth' 'Operating System', 'Physical Location', 'Phone Type', 'Phone Number', 'Depends On', 'Assigned To', 'Status', 'Expiry Date', 'General Comments']
+    dataFields = ['SNID', 'Type', 'Model', 'IP', 'MAC', 'Purchase Date', 'Age', 'License', 'Cost', 'Current Worth', 'Operating System', 'Physical Location', 'Phone Type', 'Phone Number', 'Depends On', 'Assigned To', 'Status', 'Expiry Date', 'General Comments']
     fixedDict = {}
     for item in dataFields:
         for device in touchData:
