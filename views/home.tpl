@@ -216,81 +216,145 @@ td.green {
             <td contenteditable='true' id="{{device.replace(" ","_") + "$name"}}">{{device}}</td>
             % if data[device]['SNID'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown" id="{{device.replace(" ","_") + "$snid"}}">{{data[device]['SNID']}}</td>
+            % elif data[device]['Status'] == 'Service Required':
+                <td contenteditable='true' class="orange" id="{{device.replace(" ","_") + "$snid"}}">{{data[device]['SNID']}}</td>
+            % elif data[device]['Status'] == 'Replacement Required':
+                <td contenteditable='true' class="red" id="{{device.replace(" ","_") + "$snid"}}">{{data[device]['SNID']}}</td>
             % else:
                 <td contenteditable='true' id="{{device.replace(" ","_") + "$snid"}}">{{data[device]['SNID']}}</td>
             % end
             % if data[device]['Type'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown" id="{{device.replace(" ","_") + "$type"}}">{{data[device]['Type']}}</td>
+            % elif data[device]['Status'] == 'Service Required':
+                <td contenteditable='true' class="orange" id="{{device.replace(" ","_") + "$type"}}">{{data[device]['Type']}}</td>
+            % elif data[device]['Status'] == 'Replacement Required':
+                <td contenteditable='true' class="red" id="{{device.replace(" ","_") + "$type"}}">{{data[device]['Type']}}</td>
             % else:
                 <td contenteditable='true' id="{{device.replace(" ","_") + "$type"}}">{{data[device]['Type']}}</td>
             % end
             % if data[device]['Model'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown" id="{{device.replace(" ","_") + "$model"}}">{{data[device]['Model']}}</td>
+            % elif data[device]['Status'] == 'Service Required':
+                <td contenteditable='true' class="orange" id="{{device.replace(" ","_") + "$model"}}">{{data[device]['Model']}}</td>
+            % elif data[device]['Status'] == 'Replacement Required':
+                <td contenteditable='true' class="red" id="{{device.replace(" ","_") + "$model"}}">{{data[device]['Model']}}</td>
             % else:
                 <td contenteditable='true' id="{{device.replace(" ","_") + "$model"}}">{{data[device]['Model']}}</td>
             % end
             % if data[device]['IP'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown" id="{{device.replace(" ","_") + "$IP"}}">{{data[device]['IP']}}</td>
+            % elif data[device]['Status'] == 'Service Required':
+                <td contenteditable='true' class="orange" id="{{device.replace(" ","_") + "$IP"}}">{{data[device]['IP']}}</td>
+            % elif data[device]['Status'] == 'Replacement Required':
+                <td contenteditable='true' class="red" id="{{device.replace(" ","_") + "$IP"}}">{{data[device]['IP']}}</td>
             % else:
                 <td contenteditable='true' id="{{device.replace(" ","_") + "$IP"}}">{{data[device]['IP']}}</td>
             % end
             % if data[device]['MAC'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown" id="{{device.replace(" ","_") + "$MAC"}}">{{data[device]['MAC']}}</td>
+            % elif data[device]['Status'] == 'Service Required':
+                <td contenteditable='true' class="orange" id="{{device.replace(" ","_") + "$MAC"}}">{{data[device]['MAC']}}</td>
+            % elif data[device]['Status'] == 'Replacement Required':
+                <td contenteditable='true' class="red" id="{{device.replace(" ","_") + "$MAC"}}">{{data[device]['MAC']}}</td>
             % else:
                 <td contenteditable='true' id="{{device.replace(" ","_") + "$MAC"}}">{{data[device]['MAC']}}</td>
             % end
             % if data[device]['Purchase Date'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown" id="{{device.replace(" ","_") + "$PurchaseDate"}}">{{data[device]['Purchase Date']}}</td>
+            % elif data[device]['Status'] == 'Service Required':
+                <td contenteditable='true' class="orange" id="{{device.replace(" ","_") + "$PurchaseDate"}}">{{data[device]['Purchase Date']}}</td>
+            % elif data[device]['Status'] == 'Replacement Required':
+                <td contenteditable='true' class="red" id="{{device.replace(" ","_") + "$PurchaseDate"}}">{{data[device]['Purchase Date']}}</td>
             % else:
                 <td contenteditable='true' id="{{device.replace(" ","_") + "$PurchaseDate"}}">{{data[device]['Purchase Date']}}</td>
             % end
             % if data[device]['Current Worth'] == 'UNKNOWN':
                 <td class="unknown">{{data[device]['Current Worth']}}</td>
+            % elif data[device]['Status'] == 'Service Required':
+                <td class="orange">{{data[device]['Current Worth']}}</td>
+            % elif data[device]['Status'] == 'Replacement Required':
+                <td class="red">{{data[device]['Current Worth']}}</td>
             % else:
                 <td>${{data[device]['Current Worth']}}</td>
             % end
             % if data[device]['Age'] == 'UNKNOWN':
                 <td class="unknown">{{data[device]['Age']}}</td>
+            % elif data[device]['Status'] == 'Service Required':
+                <td class="orange">{{data[device]['Age']}}</td>
+            % elif data[device]['Status'] == 'Replacement Required':
+                <td class="red">{{data[device]['Age']}}</td>
             % else:
                 <td>{{data[device]['Age']}}</td>
             % end
             % if data[device]['License'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown" id="{{device.replace(" ","_") + "$License"}}">{{data[device]['License']}}</td>
+            % elif data[device]['Status'] == 'Service Required':
+                <td contenteditable='true' class="orange" id="{{device.replace(" ","_") + "$License"}}">{{data[device]['License']}}</td>
+            % elif data[device]['Status'] == 'Replacement Required':
+                <td contenteditable='true' class="red" id="{{device.replace(" ","_") + "$License"}}">{{data[device]['License']}}</td>
             % else:
                 <td contenteditable='true' id="{{device.replace(" ","_") + "$License"}}">{{data[device]['License']}}</td>
             % end
             % if data[device]['Cost'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown" id="{{device.replace(" ","_") + "$Cost"}}">{{data[device]['Cost']}}</td>
+            % elif data[device]['Status'] == 'Service Required':
+                <td contenteditable='true' class="orange" id="{{device.replace(" ","_") + "$Cost"}}">{{data[device]['Cost']}}</td>
+            % elif data[device]['Status'] == 'Replacement Required':
+                <td contenteditable='true' class="red" id="{{device.replace(" ","_") + "$Cost"}}">{{data[device]['Cost']}}</td>
             % else:
                 <td contenteditable='true' id="{{device.replace(" ","_") + "$Cost"}}">${{data[device]['Cost']}}</td>
             % end
             % if data[device]['Operating System'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown" id="{{device.replace(" ","_") + "$OS"}}">{{data[device]['Operating System']}}</td>
+            % elif data[device]['Status'] == 'Service Required':
+                <td contenteditable='true' class="orange" id="{{device.replace(" ","_") + "$OS"}}">{{data[device]['Operating System']}}</td>
+            % elif data[device]['Status'] == 'Replacement Required':
+                <td contenteditable='true' class="red" id="{{device.replace(" ","_") + "$OS"}}">{{data[device]['Operating System']}}</td>
             % else:
                 <td contenteditable='true' id="{{device.replace(" ","_") + "$OS"}}">{{data[device]['Operating System']}}</td>
             % end
             % if data[device]['Physical Location'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown" id="{{device.replace(" ","_") + "$Location"}}">{{data[device]['Physical Location']}}</td>
+            % elif data[device]['Status'] == 'Service Required':
+                <td contenteditable='true' class="orange" id="{{device.replace(" ","_") + "$Location"}}">{{data[device]['Physical Location']}}</td>
+            % elif data[device]['Status'] == 'Replacement Required':
+                <td contenteditable='true' class="red" id="{{device.replace(" ","_") + "$Location"}}">{{data[device]['Physical Location']}}</td>
             % else:
                 <td contenteditable='true' id="{{device.replace(" ","_") + "$Location"}}">{{data[device]['Physical Location']}}</td>
             % end
             % if data[device]['Phone Type'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown" id="{{device.replace(" ","_") + "$PhoneType"}}">{{data[device]['Phone Type']}}</td>
+            % elif data[device]['Status'] == 'Service Required':
+                <td contenteditable='true' class="orange" id="{{device.replace(" ","_") + "$PhoneType"}}">{{data[device]['Phone Type']}}</td>
+            % elif data[device]['Status'] == 'Replacement Required':
+                <td contenteditable='true' class="red" id="{{device.replace(" ","_") + "$PhoneType"}}">{{data[device]['Phone Type']}}</td>
             % else:
                 <td contenteditable='true' id="{{device.replace(" ","_") + "$PhoneType"}}">{{data[device]['Phone Type']}}</td>
             % end
             % if data[device]['Phone Number'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown" id="{{device.replace(" ","_") + "$PhoneNumber"}}">{{data[device]['Phone Number']}}</td>
+            % elif data[device]['Status'] == 'Service Required':
+                <td contenteditable='true' class="orange" id="{{device.replace(" ","_") + "$PhoneNumber"}}">{{data[device]['Phone Number']}}</td>
+            % elif data[device]['Status'] == 'Replacement Required':
+                <td contenteditable='true' class="red" id="{{device.replace(" ","_") + "$PhoneNumber"}}">{{data[device]['Phone Number']}}</td>
             % else:
                 <td contenteditable='true' id="{{device.replace(" ","_") + "$PhoneNumber"}}">{{data[device]['Phone Number']}}</td>
             % end
             % if data[device]['Depends On'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown" id="{{device.replace(" ","_") + "$DependsOn"}}">{{data[device]['Depends On']}}</td>
+            % elif data[device]['Status'] == 'Service Required':
+                <td contenteditable='true' class="orange" id="{{device.replace(" ","_") + "$DependsOn"}}">{{data[device]['Depends On']}}</td>
+            % elif data[device]['Status'] == 'Replacement Required':
+                <td contenteditable='true' class="red" id="{{device.replace(" ","_") + "$DependsOn"}}">{{data[device]['Depends On']}}</td>
             % else:
                 <td contenteditable='true' id="{{device.replace(" ","_") + "$DependsOn"}}">{{data[device]['Depends On']}}</td>
             % end
             % if data[device]['Assigned To'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown" id="{{device.replace(" ","_") + "$AssignedTo"}}">{{data[device]['Assigned To']}}</td>
+            % elif data[device]['Status'] == 'Service Required':
+                <td contenteditable='true' class="orange" id="{{device.replace(" ","_") + "$AssignedTo"}}">{{data[device]['Assigned To']}}</td>
+            % elif data[device]['Status'] == 'Replacement Required':
+                <td contenteditable='true' class="red" id="{{device.replace(" ","_") + "$AssignedTo"}}">{{data[device]['Assigned To']}}</td>
             % else:
                 <td contenteditable='true' id="{{device.replace(" ","_") + "$AssignedTo"}}">{{data[device]['Assigned To']}}</td>
             % end
@@ -311,11 +375,19 @@ td.green {
 
             % if data[device]['Expiry Date'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown" id="{{device.replace(" ","_") + "$ExpiryDate"}}">{{data[device]['Expiry Date']}}</td>
+            % elif data[device]['Status'] == 'Service Required':
+                <td contenteditable='true' class="orange" id="{{device.replace(" ","_") + "$ExpiryDate"}}">{{data[device]['Expiry Date']}}</td>
+            % elif data[device]['Status'] == 'Replacement Required':
+                <td contenteditable='true' class="red" id="{{device.replace(" ","_") + "$ExpiryDate"}}">{{data[device]['Expiry Date']}}</td>
             % else:
                 <td contenteditable='true'  id="{{device.replace(" ","_") + "$ExpiryDate"}}">{{data[device]['Expiry Date']}}</td>
             % end
             % if data[device]['General Comments'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown"  id="{{device.replace(" ","_") + "$GeneralComments"}}">{{data[device]['General Comments']}}</td>
+            % elif data[device]['Status'] == 'Service Required':
+                <td contenteditable='true' class="orange"  id="{{device.replace(" ","_") + "$GeneralComments"}}">{{data[device]['General Comments']}}</td>
+            % elif data[device]['Status'] == 'Replacement Required':
+                <td contenteditable='true' class="red"  id="{{device.replace(" ","_") + "$GeneralComments"}}">{{data[device]['General Comments']}}</td>
             % else:
                 <td contenteditable='true'  id="{{device.replace(" ","_") + "$GeneralComments"}}">{{data[device]['General Comments']}}</td>
             % end
