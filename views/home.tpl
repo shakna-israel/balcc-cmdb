@@ -324,7 +324,7 @@ td.green {
 
 <form action="/edit/tableData" method="POST">
 <input name="data" type="text" id="tableDataPost" class="hidden" />
-<input onclick="onSubmit()" value="Submit Changes (Broken)" type="submit" />
+<input onclick="onSubmit()" value="Submit Changes" type="submit" />
 </form>
 
 <script>

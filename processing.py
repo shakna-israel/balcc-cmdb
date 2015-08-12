@@ -266,7 +266,6 @@ def process_table_data(longString):
     deviceList = longString.split('%')
     for device in deviceList:
         deviceAttributes = device.split('|')
-        print(deviceAttributes)
         if deviceAttributes[0] != '':
             deviceName = deviceAttributes[0]
             deviceSNID = deviceAttributes[1]
