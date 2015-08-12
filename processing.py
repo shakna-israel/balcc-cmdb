@@ -262,6 +262,7 @@ def replace_device_data(dictIn):
 def process_table_data(longString):
     backup_data()
     dictOut = {}
+    longString = longString.replace("$","")
     deviceList = longString.split('%')
     for device in deviceList:
         deviceAttributes = device.split('|')

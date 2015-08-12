@@ -348,7 +348,7 @@ function onSubmit() {
         tableDataPost.value += '|'
         tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$License'}}").innerHTML
         tableDataPost.value += '|'
-        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$Cost'}}").innerHTML.replace('$','')
+        tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$Cost'}}").innerHTML
         tableDataPost.value += '|'
         tableDataPost.value += document.getElementById("{{device.replace(" ","_") + '$OS'}}").innerHTML
         tableDataPost.value += '|'
