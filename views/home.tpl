@@ -323,10 +323,11 @@ td.green {
     <p>No Data Found</p>
 % end
 
-<form action="/edit/tableData" method="POST">
-<input name="data" type="text" id="tableDataPost" class="hidden" />
-<input onclick="onSubmit()" value="Submit Changes" type="submit" />
-</form>
+% if data:
+    <form action="/edit/tableData" method="POST">
+    <input name="data" type="text" id="tableDataPost" class="hidden" />
+    <input onclick="onSubmit()" value="Submit Changes" type="submit" />
+    </form>
 
 <script>
 function onSubmit() {
