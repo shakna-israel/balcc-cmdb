@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from bottle import route, run, template, redirect, request
-from processing import get_data, write_data, get_people, get_location, write_people, remove_person, replace_user_data, process_table_data
+from processing import get_data, write_data, get_people, get_location, write_people, write_location, remove_person, replace_user_data, process_table_data, match_results, process_search_table_data
 
 @route('/')
 def index():
@@ -18,6 +18,50 @@ def form_person_fetch():
     name = request.forms.get('name')
     role = request.forms.get('role')
     redirect('/add/' + name + '/' + role)
+
+@route('/new/location', method='GET')
+def form_location():
+    return template('generate_location', POSTURL="/new/location")
+
+@route('/new/location', method='POST')
+def form_location_fetch():
+    name = request.forms.get('name')
+    redirect('/add/location/' + name)
+
+@route('/add/location/<name>')
+def add_location(name):
+    whileLoop = 0
+    while whileLoop == 0:
+        name = str(name)
+        locations = get_location()
+        locations.append(name)
+        write_location(locations)
+        whileLoop = 1
+    redirect('/')
+
+@route('/del/location', method='GET')
+def form_del_location():
+    Locations = get_location()
+    return template('generate_location', POSTURL="/del/location", Locations=Locations)
+
+@route('/del/location', method='POST')
+def form_del_location_fetch():
+    name = request.forms.get('name')
+    redirect('/del/location/' + str(name))
+
+@route('/del/location/<name>')
+def del_location(name):
+    whileLoop = 0
+    while whileLoop == 0:
+        name = str(name)
+        if "_" in name:
+            name = name.replace("_"," ")
+        locations = list(get_location())
+        locations.remove(name)
+        write_location(locations)
+        whileLoop = 1
+    redirect('/')
+
 
 @route('/add/<name>/<role>')
 def add_person(name, role):
@@ -181,9 +225,145 @@ def get_table_changes():
     process_table_data(tableData)
     redirect('/')
 
-@route('/query/')
-def search_function():
-    #http://bottlepy.org/docs/dev/tutorial.html#query-variables
-    return "Not Yet Implemented"
+@route('/search/tableData', method='POST')
+def get_search_table_changes():
+    tableData = request.forms.get('data')
+    process_search_table_data(tableData)
+    redirect('/')
+
+@route('/query/build', method='POST')
+def get_search_submit():
+    name = request.forms.get('name')
+    if name == "":
+        name = False
+    snid = request.forms.get('snid')
+    if snid == "":
+        snid = False
+    deviceType = request.forms.get('deviceType')
+    if deviceType == "":
+        deviceType = False
+    model = request.forms.get('model')
+    if model == "":
+        model = False
+    ip = request.forms.get('ip')
+    if ip == "":
+        ip = False
+    mac = request.forms.get('mac')
+    if mac == "":
+        mac = False
+    purchase_date = request.forms.get('purchase_date')
+    if purchase_date == "":
+        purchase_date = False
+    worth = request.forms.get('worth')
+    if worth == "":
+        worth = False
+    age = request.forms.get('age')
+    if age == "":
+        age = False
+    license = request.forms.get('license')
+    if license == "":
+        license = False
+    cost = request.forms.get('cost')
+    if cost == "":
+        cost = False
+    os = request.forms.get('os')
+    if os == "":
+        os = False
+    location = request.forms.get('location')
+    if location == "":
+        location = False
+    phone_type = request.forms.get('phone_type')
+    if phone_type == "":
+        phone_type = False
+    phone_no = request.forms.get('phone_no')
+    if phone_no == "":
+        phone_no = False
+    depend = request.forms.get('depends')
+    if depend == "":
+        depend = False
+    assign = request.forms.get('assign')
+    if assign == "":
+        assign = False
+    status = request.forms.get('status')
+    if status == "":
+        status = False
+    expiry_date = request.forms.get('expiry_date')
+    if expiry_date == "":
+        expiry_date = False
+    comments = request.forms.get('comments')
+    if comments == "":
+        comments = False
+    dictOut = {"Name": name, "SNID": snid, "Type": deviceType, "Model": model, "IP": ip, "MAC": mac, "Purchase Date": purchase_date, "Current Worth": worth, "Age": age, "License": license, "Cost": cost, "Operating System": os, "Physical Location": location, "Phone Type": phone_type, "Phone Number": phone_no, "Depends On": depend, "Assigned To": assign, "Status": status, "Expiry Date": expiry_date, "General Comments": comments}
+    query = "/query?search"
+    for key, value in dictOut.items():
+        if value != False:
+            query = query + "&" + key + "=" + value
+    redirect(query)
+
+@route('/query')
+def search_rest():
+    name = request.query.name
+    if name == "":
+        name = False
+    snid = request.query.snid
+    if snid == "":
+        snid = False
+    deviceType = request.query.type
+    if deviceType == "":
+        deviceType = False
+    model = request.query.model
+    if model == "":
+        model = False
+    ip = request.query.ip
+    if ip == "":
+        ip = False
+    mac = request.query.mac
+    if mac == "":
+        mac = False
+    purchase_date = request.query.purchase_date
+    if purchase_date == "":
+        purchase_date = False
+    worth = request.query.worth
+    if worth == "":
+        worth = False
+    age = request.query.age
+    if age == "":
+        age = False
+    license = request.query.license
+    if license == "":
+        license = False
+    cost = request.query.cost
+    if cost == "":
+        cost = False
+    os = request.query.os
+    if os == "":
+        os = False
+    location = request.query.location
+    if location == "":
+        location = False
+    phone_type = request.query.phone_type
+    if phone_type == "":
+        phone_type = False
+    phone_no = request.query.phone_no
+    if phone_no == "":
+        phone_no = False
+    depend = request.query.depend
+    if depend == "":
+        depend = False
+    assign = request.query.assign
+    if assign == "":
+        assign = False
+    status = request.query.status
+    if status == "":
+        status = False
+    expiry_date = request.query.expiry_date
+    if expiry_date == "":
+        expiry_date = False
+    comments = request.query.comments
+    if comments == "":
+        comments = False
+    dictOut = {"Name": name, "SNID": snid, "Type": deviceType, "Model": model, "IP": ip, "MAC": mac, "Purchase Date": purchase_date, "Current Worth": worth, "Age": age, "License": license, "Cost": cost, "Operating System": os, "Physical Location": location, "Phone Type": phone_type, "Phone Number": phone_no, "Depends On": depend, "Assigned To": assign, "Status": status, "Expiry Date": expiry_date, "General Comments": comments}
+    results = match_results(dictOut, get_data())
+    return template('search', results=results, data=get_data())
 
 run(host='0.0.0.0', port=8080)

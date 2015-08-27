@@ -6,6 +6,24 @@ import os
 import datetime
 import math
 
+def match_results(dictIn, dataIn):
+    """Match devices against search query data"""
+    results = []
+    key_list = ["SNID", "Type", "Model", "IP", "MAC", "Purchase Date", "Current Worth", "Age", "License", "Cost", "Operating System", "Physical Location", "Phone Type", "Phone Number", "Depends On", "Assigned To", "Status", "Expiry Date", "General Comments"]
+    for device in dataIn:
+        for key, value in dictIn.items():
+            if value != False:
+                if key == "Name":
+                    if key in dataIn[device]:
+                        results.append(device)
+                else:
+                    for key_compare in key_list:
+                        if key == key_compare:
+                            if value in dataIn[device][key_compare]:
+                                results.append(device)
+    results = list(set(results))
+    return results
+
 def prevent_key_errors(dictIn, keyForce):
     """Allow keys that don't exist, but are expected to, to take on default values"""
     dictOut = dictIn
@@ -253,7 +271,7 @@ def get_location():
 def write_location(listIn):
     """Write locations to file"""
     dictOut = {}
-    dictOut['locations'] = list(listIn)
+    dictOut['locations'] = list(set(list(listIn)))
     with open(os.path.expanduser("~/.cmdb/data/location.json"), 'w+') as outFile:
         json.dump(dictOut, outFile, sort_keys = True, indent = 4, ensure_ascii = False)
 
@@ -315,3 +333,50 @@ def process_table_data(longString):
                 dictOut[deviceName]['Expiry Date'] = deviceExpiryDate
                 dictOut[deviceName]['General Comments'] = deviceGeneralComments
     replace_device_data(dictOut)
+
+def process_search_table_data(longString):
+    backup_data()
+    data = get_data()
+    longString = longString.replace("$","")
+    deviceList = longString.split('%')
+    for device in deviceList:
+        deviceAttributes = device.split('|')
+        if deviceAttributes[0] != '':
+            if deviceAttributes[1] != 'REMOVE':
+                deviceName = deviceAttributes[0]
+                deviceSNID = deviceAttributes[1]
+                deviceType = deviceAttributes[2]
+                deviceModel = deviceAttributes[3]
+                deviceIP = deviceAttributes[4]
+                deviceMAC = deviceAttributes[5]
+                devicePurchaseDate = deviceAttributes[6]
+                deviceLicense = deviceAttributes[7]
+                deviceCost = deviceAttributes[8]
+                deviceOS = deviceAttributes[9]
+                deviceLocation = deviceAttributes[10]
+                devicePhoneType = deviceAttributes[11]
+                devicePhoneNumber = deviceAttributes[12]
+                deviceDependsOn = deviceAttributes[13]
+                deviceAssignedTo = deviceAttributes[14]
+                deviceStatus = deviceAttributes[15]
+                deviceExpiryDate = deviceAttributes[16]
+                deviceGeneralComments = deviceAttributes[17]
+                data[deviceName] = {}
+                data[deviceName]['SNID'] = deviceSNID
+                data[deviceName]['Type'] = deviceType
+                data[deviceName]['Model'] = deviceModel
+                data[deviceName]['IP'] = deviceIP
+                data[deviceName]['MAC'] = deviceMAC
+                data[deviceName]['Purchase Date'] = devicePurchaseDate
+                data[deviceName]['License'] = deviceLicense
+                data[deviceName]['Cost'] = deviceCost
+                data[deviceName]['Operating System'] = deviceOS
+                data[deviceName]['Physical Location'] = deviceLocation
+                data[deviceName]['Phone Type'] = devicePhoneType
+                data[deviceName]['Phone Number'] = devicePhoneNumber
+                data[deviceName]['Depends On'] = deviceDependsOn
+                data[deviceName]['Assigned To'] = deviceAssignedTo
+                data[deviceName]['Status'] = deviceStatus
+                data[deviceName]['Expiry Date'] = deviceExpiryDate
+                data[deviceName]['General Comments'] = deviceGeneralComments
+    replace_device_data(data)

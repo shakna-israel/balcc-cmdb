@@ -43,6 +43,11 @@ td.green {
 .container {
     width:100%;
 }
+.elevator-button {
+    position:fixed;
+    bottom:2em;
+    right:2em;
+}
 @media (min-width: 30em) {
     .row { width: 100%; display: table; table-layout: fixed; }
     .col { display: table-cell; }
@@ -52,18 +57,32 @@ td.green {
 <body class="container">
 <div class="row">
     <div class="col">
-        <p><a href="/create">Create New Device</a></p>
+        <p><a href="/create">Create Device</a></p>
     </div>
     <div class="col">
-        <p><a href="/new/person">Create New User</a></p>
+        <p><a href="/new/person">Create User</a></p>
     </div>
     <div class="col">
-        <p><a href="/del/person">Delete Existing User</a></p>
+        <p><a href="/del/person">Delete User</a></p>
     </div>
     <div class="col">
-        <p><a href="/edit/person">Edit Existing User</a></p>
+        <p><a href="/edit/person">Edit User</a></p>
+    </div>
+    <div class="col">
+        <p><a href="/new/location">Create Location</a></p>
+    </div>
+    <div class="col">
+        <p><a href="/del/location">Delete Location</a></p>
     </div>
 </div>
+<div class="row">
+    <div class="col">
+        <p><a href="/query/">Search</a></p>
+    </div>
+</div>
+
+<div class="elevator-button">Back to Top</div>
+
 <div class="row">
     <div class="col">
     % deviceCount = len(data.keys())
@@ -450,6 +469,20 @@ function onSubmit() {
     var tableDataClean = tableDataPost.value
     tableDataCleanTrue = tableDataClean.replace(/(<([^>]+)>)/ig, "")
     tableDataPost.value = tableDataCleanTrue
+}
+</script>
+<script>
+// Elevator.js, MIT License, Tim Holman
+var Elevator=function(n){"use strict";function o(n,o,e,t){return n/=t/2,1>n?e/2*n*n+o:(n--,-e/2*(n*(n-2)-1)+o)}function e(n,o){for(var e in o){var t=void 0===n[e]&&"function"!=typeof e;t&&(n[e]=o[e])}return n}function t(n){w||(w=n);var e=n-w,i=o(e,f,-f,p);window.scrollTo(0,i),p>e?A=requestAnimationFrame(t):r()}function i(){return window.requestAnimationFrame&&window.Audio&&window.addEventListener}function u(){w=null,f=null,E=!1}function r(){u(),c&&(c.pause(),c.currentTime=0),m&&m.play()}function d(){E&&(cancelAnimationFrame(A),u(),c&&(c.pause(),c.currentTime=0),window.scrollTo(0,0))}function l(n){n.addEventListener?n.addEventListener("click",T.elevate,!1):n.attachEvent("onclick",function(){document.documentElement.scrollTop=0,document.body.scrollTop=0,window.scroll(0,0)})}function a(n){s=document.body;var o={duration:void 0,mainAudio:!1,endAudio:!1,preloadAudio:!0,loopAudio:!0};n=e(n,o),n.element&&l(n.element),i()&&(n.duration&&(v=!0,p=n.duration),window.addEventListener("blur",d,!1),n.mainAudio&&(c=new Audio(n.mainAudio),c.setAttribute("preload",n.preloadAudio),c.setAttribute("loop",n.loopAudio)),n.endAudio&&(m=new Audio(n.endAudio),m.setAttribute("preload","true")))}var c,m,s=null,A=null,p=null,v=!1,w=null,f=null,E=!1,T=this;this.elevate=function(){E||(E=!0,f=document.documentElement.scrollTop||s.scrollTop,v||(p=1.5*f),requestAnimationFrame(t),c&&c.play())},a(n)};
+</script>
+<script>
+// Elevator script included on the page, already.
+
+window.onload = function() {
+  var elevator = new Elevator({
+    element: document.querySelector('.elevator-button'),
+    duration: 1000 // milliseconds
+  });
 }
 </script>
 
