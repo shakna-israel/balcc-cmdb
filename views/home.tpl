@@ -77,7 +77,7 @@ td.green {
 </div>
 <div class="row">
     <div class="col">
-        <p><a href="/query/">Search</a></p>
+        <p><a href="/query">Search</a></p>
     </div>
 </div>
 

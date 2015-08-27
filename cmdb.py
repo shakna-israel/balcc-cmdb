@@ -293,8 +293,8 @@ def get_search_submit():
     comments = request.forms.get('comments')
     if comments == "":
         comments = False
-    dictOut = {"Name": name, "SNID": snid, "Type": deviceType, "Model": model, "IP": ip, "MAC": mac, "Purchase Date": purchase_date, "Current Worth": worth, "Age": age, "License": license, "Cost": cost, "Operating System": os, "Physical Location": location, "Phone Type": phone_type, "Phone Number": phone_no, "Depends On": depend, "Assigned To": assign, "Status": status, "Expiry Date": expiry_date, "General Comments": comments}
-    query = "/query?search"
+    dictOut = {"name": name, "snid": snid, "type": deviceType, "model": model, "ip": ip, "mac": mac, "purchase_date": purchase_date, "worth": worth, "age": age, "license": license, "cost": cost, "os": os, "location": location, "phone_type": phone_type, "phone_no": phone_no, "depend": depend, "assign": assign, "status": status, "expiry_date": expiry_date, "comments": comments}
+    query = "/query?search=True"
     for key, value in dictOut.items():
         if value != False:
             query = query + "&" + key + "=" + value
@@ -302,68 +302,72 @@ def get_search_submit():
 
 @route('/query')
 def search_rest():
-    name = request.query.name
-    if name == "":
-        name = False
-    snid = request.query.snid
-    if snid == "":
-        snid = False
-    deviceType = request.query.type
-    if deviceType == "":
-        deviceType = False
-    model = request.query.model
-    if model == "":
-        model = False
-    ip = request.query.ip
-    if ip == "":
-        ip = False
-    mac = request.query.mac
-    if mac == "":
-        mac = False
-    purchase_date = request.query.purchase_date
-    if purchase_date == "":
-        purchase_date = False
-    worth = request.query.worth
-    if worth == "":
-        worth = False
-    age = request.query.age
-    if age == "":
-        age = False
-    license = request.query.license
-    if license == "":
-        license = False
-    cost = request.query.cost
-    if cost == "":
-        cost = False
-    os = request.query.os
-    if os == "":
-        os = False
-    location = request.query.location
-    if location == "":
-        location = False
-    phone_type = request.query.phone_type
-    if phone_type == "":
-        phone_type = False
-    phone_no = request.query.phone_no
-    if phone_no == "":
-        phone_no = False
-    depend = request.query.depend
-    if depend == "":
-        depend = False
-    assign = request.query.assign
-    if assign == "":
-        assign = False
-    status = request.query.status
-    if status == "":
-        status = False
-    expiry_date = request.query.expiry_date
-    if expiry_date == "":
-        expiry_date = False
-    comments = request.query.comments
-    if comments == "":
-        comments = False
-    dictOut = {"Name": name, "SNID": snid, "Type": deviceType, "Model": model, "IP": ip, "MAC": mac, "Purchase Date": purchase_date, "Current Worth": worth, "Age": age, "License": license, "Cost": cost, "Operating System": os, "Physical Location": location, "Phone Type": phone_type, "Phone Number": phone_no, "Depends On": depend, "Assigned To": assign, "Status": status, "Expiry Date": expiry_date, "General Comments": comments}
-    results = match_results(dictOut, get_data())
-    return template('search', results=results, data=get_data())
+    searched = request.query.search
+    whileLoop = 0
+    while whileLoop == 0:
+        name = request.query.name
+        if name == "":
+            name = False
+        snid = request.query.snid
+        if snid == "":
+            snid = False
+        deviceType = request.query.type
+        if deviceType == "":
+            deviceType = False
+        model = request.query.model
+        if model == "":
+            model = False
+        ip = request.query.ip
+        if ip == "":
+            ip = False
+        mac = request.query.mac
+        if mac == "":
+            mac = False
+        purchase_date = request.query.purchase_date
+        if purchase_date == "":
+            purchase_date = False
+        worth = request.query.worth
+        if worth == "":
+            worth = False
+        age = request.query.age
+        if age == "":
+            age = False
+        license = request.query.license
+        if license == "":
+            license = False
+        cost = request.query.cost
+        if cost == "":
+            cost = False
+        os = request.query.os
+        if os == "":
+            os = False
+        location = request.query.location
+        if location == "":
+            location = False
+        phone_type = request.query.phone_type
+        if phone_type == "":
+            phone_type = False
+        phone_no = request.query.phone_no
+        if phone_no == "":
+            phone_no = False
+        depend = request.query.depend
+        if depend == "":
+            depend = False
+        assign = request.query.assign
+        if assign == "":
+            assign = False
+        status = request.query.status
+        if status == "":
+            status = False
+        expiry_date = request.query.expiry_date
+        if expiry_date == "":
+            expiry_date = False
+        comments = request.query.comments
+        if comments == "":
+            comments = False
+        dictOut = {"Name": name, "SNID": snid, "Type": deviceType, "Model": model, "IP": ip, "MAC": mac, "Purchase Date": purchase_date, "Current Worth": worth, "Age": age, "License": license, "Cost": cost, "Operating System": os, "Physical Location": location, "Phone Type": phone_type, "Phone Number": phone_no, "Depends On": depend, "Assigned To": assign, "Status": status, "Expiry Date": expiry_date, "General Comments": comments}
+        results = match_results(dictOut, get_data())
+        whileLoop = 1
+    return template('search', results=results, data=get_data(), searched=searched)
 
 run(host='0.0.0.0', port=8080)
