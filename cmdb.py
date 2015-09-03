@@ -138,7 +138,7 @@ def create_get():
     teachers = get_people()['teachers']
     students = get_people()['students']
     locations = get_location()
-    dataFields = ['Router','Switch','Barrix','Software - Individual', 'Software - Subscription','Hub','Desktop Computer','Laptop','Projector','Speakers','Television - CRT', 'Television - LCD', 'Phone']
+    dataFields = ['Router','Switch','Barrix','Software - Individual', 'Software - Subscription','Hub','Desktop Computer','Laptop','Projector','Speakers','Television - CRT', 'Television - LCD', 'Phone', 'DVD Player', 'VCR', 'Printer', 'Other']
     return template('generate', dataFields=dataFields, devices=devices, staff=staff, teachers=teachers, students=students, locations=locations)
 
 @route('/create', method='POST')

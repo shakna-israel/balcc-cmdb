@@ -45,8 +45,12 @@ td.green {
 }
 .elevator-button {
     position:fixed;
+    padding:1em;
     bottom:2em;
     right:2em;
+    background-color: rgb(0, 0, 255);
+    background-color: rgba(0, 0, 255, 0.8);
+    color: rgb(255,255,255);
 }
 @media (min-width: 30em) {
     .row { width: 100%; display: table; table-layout: fixed; }
@@ -232,7 +236,7 @@ td.green {
         <tbody>
         % for device in data:
             <tr>
-            <td contenteditable='true' id="{{device.replace(" ","_") + "$name"}}">{{device}}</td>
+            <td id="{{device.replace(" ","_") + "$name"}}">{{device}}</td>
             % if data[device]['SNID'] == 'UNKNOWN':
                 <td contenteditable='true' class="unknown" id="{{device.replace(" ","_") + "$snid"}}">{{data[device]['SNID']}}</td>
             % elif data[device]['Status'] == 'Service Required':
