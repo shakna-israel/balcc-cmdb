@@ -42,7 +42,7 @@ def add_location(name):
 @route('/del/location', method='GET')
 def form_del_location():
     Locations = get_location()
-    return template('generate_location', POSTURL="/del/location", Locations=Locations)
+    return template('del_location', POSTURL="/del/location", locations=Locations)
 
 @route('/del/location', method='POST')
 def form_del_location_fetch():
