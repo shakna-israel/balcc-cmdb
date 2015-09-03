@@ -3,10 +3,12 @@
 
 from bottle import route, run, template, redirect, request
 from processing import get_data, write_data, get_people, get_location, write_people, write_location, remove_person, replace_user_data, process_table_data, match_results, process_search_table_data
+from collections import OrderedDict
 
 @route('/')
 def index():
     data = get_data()
+    data = OrderedDict(sorted(data.items(), key=lambda t: t[0]))
     return template('home',data=data)
 
 @route('/new/person', method='GET')
