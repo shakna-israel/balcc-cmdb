@@ -1,3 +1,4 @@
 (A) 2015-08-12 Highlight row for warnings - Warn If: PC but no IP or MAC, Phone but no Number
 (B) 2015-08-12 Search and Filter Functions
 (C) 2015-08-12 Insert existing data
+(B) 2015-08-12 Organise Front page by Title (OrderedDict). Use queries.
